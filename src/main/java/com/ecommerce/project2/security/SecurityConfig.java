@@ -29,17 +29,14 @@ public class SecurityConfig {
         security
                 .headers(x -> x.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .csrf(csrfConfig ->
-                        csrfConfig.ignoringRequestMatchers(mvcRequestBuilder.pattern("/public/**"))
-                                .ignoringRequestMatchers(PathRequest.toH2Console()))
+                        csrfConfig.ignoringRequestMatchers(mvcRequestBuilder.pattern("/public/**")))
                 .authorizeHttpRequests(x ->
                         x
                                 .requestMatchers(mvcRequestBuilder.pattern("/public/**")).permitAll()
                                 .requestMatchers(mvcRequestBuilder.pattern("/private/admin/**")).hasRole(Role.ROLE_ADMIN.getValue())
                                 .requestMatchers(mvcRequestBuilder.pattern("/private/**")).hasAnyRole(Role.ROLE_USER.getValue(),
                                         Role.ROLE_ADMIN.getValue())
-
-                                .requestMatchers(PathRequest.toH2Console()).hasRole("ADMIN")
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .formLogin(Customizer.withDefaults())
                 .httpBasic(Customizer.withDefaults())
