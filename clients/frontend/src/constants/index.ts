@@ -19,6 +19,10 @@ export const navItems = [
     name: "Contact",
     url: "/contact",
   },
+  {
+    name: "Login",
+    url: "/auth/login",
+  },
 ];
 
 export const products = [

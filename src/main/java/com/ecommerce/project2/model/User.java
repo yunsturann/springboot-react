@@ -2,8 +2,10 @@ package com.ecommerce.project2.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Set;
 
 @Data
@@ -21,26 +23,45 @@ public class User implements UserDetails {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "surname")
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    private boolean accountNonExpired;
-    private boolean isEnabled;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
 
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "authorities", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role", nullable = false)
+    @Column(name = "role", nullable = false, columnDefinition = "varchar(255) default 'ROLE_USER'")
     @Enumerated(EnumType.STRING)
-    private Set<Role> authorities;
+    private Role authority;
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
