@@ -8,14 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/private/user")
 public class UserController {
 
-/*
+
     @GetMapping("/user-info")
     public UserDto getUserInfo(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        return new UserDto(user.getId(), user.getUsername(),
-                user.getName(), user.getLastName(), user.getEmail(), user.getAuthorities());
-    }*/
+        return new UserDto(user.getId(), user.getUsername(), user.getName(), user.getLastName(), user.getEmail(), user.getRole());
+    }
 }

@@ -1,5 +1,6 @@
 package com.ecommerce.project2.model;
 
+import com.ecommerce.project2.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,11 +36,15 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-
     @Column(name = "role", nullable = false, columnDefinition = "varchar(255) default 'ROLE_USER'")
     @Enumerated(EnumType.STRING)
-    private Role authority;
+    private Role role;
 
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    private Set<ContactInfo> contactInfos;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Order> orders;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

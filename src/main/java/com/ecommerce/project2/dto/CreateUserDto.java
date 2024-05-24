@@ -1,16 +1,18 @@
 package com.ecommerce.project2.dto;
 
-import com.ecommerce.project2.enums.Role;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+
 
 @Data
 @AllArgsConstructor
-public class UserDto {
-    private Long id;
-    private String username;
+@Builder
+public class CreateUserDto {
     private String name;
-    private String lastName;
+    private String surname;
+    private String username;
+    private String password;
     private String email;
-    private Role role;
+
 }

@@ -1,9 +1,7 @@
 package com.ecommerce.project2.controller;
 
-import com.ecommerce.project2.dto.CreateUserRequest;
-import com.ecommerce.project2.model.Role;
+import com.ecommerce.project2.dto.CreateUserDto;
 import com.ecommerce.project2.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,12 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    @Autowired
-    private UserService userService;
-/*
+    private final UserService userService;
+
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
+
     @PostMapping("/register")
-    public ResponseEntity<CreateUserRequest> registerUser(@RequestBody CreateUserRequest request) {
+    public ResponseEntity<CreateUserDto> registerUser(@RequestBody CreateUserDto request) {
         userService.createUser(request);
         return ResponseEntity.ok(request);
-    }*/
+    }
 }

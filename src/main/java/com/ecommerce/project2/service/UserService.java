@@ -1,15 +1,14 @@
 package com.ecommerce.project2.service;
 
-import com.ecommerce.project2.dto.CreateUserRequest;
-
-import com.ecommerce.project2.model.Role;
+import com.ecommerce.project2.dto.CreateUserDto;
+import com.ecommerce.project2.dto.UserDto;
+import com.ecommerce.project2.enums.Role;
 import com.ecommerce.project2.model.User;
 import com.ecommerce.project2.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class UserService {
@@ -25,17 +24,18 @@ public class UserService {
     public Optional<User> getByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-/*
-    public User createUser(CreateUserRequest request) {
 
-        User newUser = User.builder()
-                .name(request.name())
-                .username(request.username())
-                .password(bCryptPasswordEncoder.encode(request.password()))
-                .authorities((Set.of(Role.ROLE_USER))
+    public UserDto createUser(CreateUserDto request) {
+        User user = User.builder()
+                .name(request.getName())
+                .lastName(request.getSurname())
+                .username(request.getUsername())
+                .email(request.getEmail())
+                .password(bCryptPasswordEncoder.encode(request.getPassword()))
+                .role(Role.ROLE_USER)
                 .build();
-
-        return userRepository.save(newUser);
+        userRepository.save(user);
+        return new UserDto(user.getId(), user.getUsername(), user.getName(), user.getLastName(), user.getEmail(), user.getRole());
     }
-*/
+
 }

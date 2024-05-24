@@ -1,6 +1,5 @@
 package com.ecommerce.project2.security;
 
-import com.ecommerce.project2.model.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -27,7 +26,6 @@ public class SecurityConfig {
 
 
         security
-
                 .headers(x -> x.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
@@ -35,7 +33,7 @@ public class SecurityConfig {
                         x
                                 .requestMatchers(mvcRequestBuilder.pattern("/about")).authenticated()
                                 .requestMatchers(mvcRequestBuilder.pattern("/api/auth/**")).permitAll()
-                                .requestMatchers("/api/user/**").authenticated()
+                                .requestMatchers("/api/private/**").authenticated()
                                 .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())
