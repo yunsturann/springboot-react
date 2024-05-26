@@ -25,17 +25,18 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public UserDto createUser(CreateUserDto request) {
+    public String createUser(CreateUserDto request) {
         User user = User.builder()
                 .name(request.getName())
                 .lastName(request.getSurname())
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(bCryptPasswordEncoder.encode(request.getPassword()))
+                .phoneNumber(request.getPhoneNumber())
                 .role(Role.ROLE_USER)
                 .build();
         userRepository.save(user);
-        return new UserDto(user.getId(), user.getUsername(), user.getName(), user.getLastName(), user.getEmail(), user.getRole());
+        return "User created successfully";
     }
 
 }

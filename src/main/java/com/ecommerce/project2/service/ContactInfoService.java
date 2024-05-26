@@ -41,7 +41,7 @@ public class ContactInfoService {
             return "Contact Info not found";
         }
         contactInfo1.setAddress(contactInfo.getAddress());
-        contactInfo1.setPhoneNumber(contactInfo.getPhoneNumber());
+        contactInfo1.setTitle(contactInfo.getTitle());
         contactInfoRepository.save(contactInfo1);
         return "Contact Info updated successfully";
     }
@@ -54,7 +54,5 @@ public class ContactInfoService {
         contactInfoRepository.delete(contactInfo);
         return "Contact Info deleted successfully";
     }
-
-
 
 }

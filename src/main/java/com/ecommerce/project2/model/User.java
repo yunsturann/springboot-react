@@ -36,6 +36,9 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
+
     @Column(name = "role", nullable = false, columnDefinition = "varchar(255) default 'ROLE_USER'")
     @Enumerated(EnumType.STRING)
     private Role role;

@@ -19,11 +19,11 @@ public class ContactInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title", nullable = false, unique = true)
+    private String title;
+
     @Column(name = "address", nullable = false)
     private String address;
-
-    @Column(name = "phone_number", nullable = false)
-    private String phoneNumber;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;
