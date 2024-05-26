@@ -1,22 +1,25 @@
 import { FC } from "react";
 import AddToCart from "./AddToCart";
+import { IProduct } from "../../types";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store";
+import { addItem } from "../../store/basket-slice";
 
 interface ProductInfoProps {
-  product: {
-    id: number;
-    company: string;
-    name: string;
-    description: string;
-    discount: number;
-    price: number;
-  };
+  product: IProduct;
 }
 
 const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
   const { company, name, description, discount, price } = product;
 
+  const dispatch = useDispatch<AppDispatch>();
+
   const calculateWithoutDiscount = (price: number, discount: number) => {
     return (price * 100) / discount;
+  };
+
+  const addToBasket = (amount: number) => {
+    dispatch(addItem({ product, quantity: amount }));
   };
 
   return (
@@ -35,7 +38,7 @@ const ProductInfo: FC<ProductInfoProps> = ({ product }) => {
       <p className="mb-8 mt-2 line-through text-gray-300 font-semibold tracking-wider">
         ${calculateWithoutDiscount(price, discount).toFixed(2)}
       </p>
-      <AddToCart />
+      <AddToCart addToBasket={addToBasket} />
     </div>
   );
 };

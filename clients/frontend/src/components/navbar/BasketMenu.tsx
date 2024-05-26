@@ -1,16 +1,19 @@
 // ** React Imports
 import { useRef, useState } from "react";
 
-// ** Constants
-import { products } from "../../constants";
-
 // ** Custom Components
 import Button from "../ui/Button";
 
 // ** Custom Hooks
 import { useClickOutside } from "../../hooks/use-click-outside";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store";
+import { removeItem } from "../../store/basket-slice";
 
 const BasketMenu = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const basketProducts = useSelector((state: RootState) => state.basket);
+
   const [isBasketOpen, setIsBasketOpen] = useState(false);
 
   const iconRef = useRef<HTMLDivElement | null>(null);
@@ -23,6 +26,10 @@ const BasketMenu = () => {
 
   const toggleBasket = () => {
     setIsBasketOpen((prev) => !prev);
+  };
+
+  const handleDelete = (index: number) => {
+    dispatch(removeItem(index));
   };
 
   return (
@@ -40,9 +47,9 @@ const BasketMenu = () => {
           height={24}
           width={24}
         />
-        {products.length > 0 ? (
+        {basketProducts.length > 0 ? (
           <span className="absolute -top-2 -right-2 z-10 px-2 bg-primary-orange/90 font-bold text-white text-xs rounded-full">
-            {products.length}
+            {basketProducts.length}
           </span>
         ) : null}
       </div>
@@ -57,18 +64,18 @@ const BasketMenu = () => {
             <h2 className="font-semibold ">Cart</h2>
           </div>
           {/* BODY */}
-          {products.length > 0 ? (
+          {basketProducts.length > 0 ? (
             <>
               <div className="p-4 max-h-[440px] overflow-auto space-y-3">
-                {products.map((item) => (
+                {basketProducts.map(({ product, quantity }, index) => (
                   <div
-                    key={item.id}
+                    key={index}
                     className="flex justify-between items-center gap-3"
                   >
                     {/* IMAGE */}
                     <div>
                       <img
-                        src={item.image}
+                        src={product.images[0].thumbnail}
                         alt="product"
                         width={40}
                         height={40}
@@ -77,16 +84,19 @@ const BasketMenu = () => {
                     </div>
                     {/* DETAILS */}
                     <div className="flex-1 text-dark-grayish-blue">
-                      <p>{item.name}</p>
+                      <p>{product.name}</p>
                       <p>
-                        {`$${item.price.toFixed(2)} x ${item.quantity}`}{" "}
+                        {`$${product.price.toFixed(2)} x ${quantity}`}{" "}
                         <b className="text-black">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          ${(product.price * quantity).toFixed(2)}
                         </b>
                       </p>
                     </div>
                     {/* DELETE */}
-                    <div className="cursor-pointer hover:opacity-75 transition duration-75">
+                    <div
+                      className="cursor-pointer hover:opacity-75 transition duration-75"
+                      onClick={() => handleDelete(index)}
+                    >
                       <img
                         src="/images/icon-delete.svg"
                         alt="delete-icon"

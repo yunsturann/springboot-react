@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 // ** Custom Components
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
@@ -9,8 +7,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const Login = () => {
-  const router = useNavigate();
-
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -25,7 +21,6 @@ const Login = () => {
 
       if (response.status === 200) {
         toast.success("Login successful");
-        router("/");
       } else {
         toast.error("Invalid credentials");
       }

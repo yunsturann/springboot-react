@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/private/user")
 public class UserController {
 
-    @GetMapping("/user-info")
+    @GetMapping("/session")
     public UserDto getUserInfo(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return new UserDto(user.getId(), user.getUsername(), user.getName(), user.getLastName(), user.getEmail(), user.getPhoneNumber(),user.getRole());

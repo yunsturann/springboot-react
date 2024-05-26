@@ -27,12 +27,12 @@ public class UserService {
 
     public String createUser(CreateUserDto request) {
         User user = User.builder()
+                .username(request.getUsername())
                 .name(request.getName())
                 .lastName(request.getSurname())
-                .username(request.getUsername())
                 .email(request.getEmail())
                 .password(bCryptPasswordEncoder.encode(request.getPassword()))
-                .phoneNumber(request.getPhoneNumber())
+                .phoneNumber(request.getPhone())
                 .role(Role.ROLE_USER)
                 .build();
         userRepository.save(user);

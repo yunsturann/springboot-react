@@ -3,8 +3,13 @@ import { useState } from "react";
 
 // ** Custom Components
 import Button from "../ui/Button";
+import toast from "react-hot-toast";
 
-const AddToCart = () => {
+interface AddToCartProps {
+  addToBasket: (amount: number) => void;
+}
+
+const AddToCart = ({ addToBasket }: AddToCartProps) => {
   const [amount, setAmount] = useState(0);
 
   const handleDecrement = () => {
@@ -14,6 +19,15 @@ const AddToCart = () => {
 
   const handleIncrement = () => {
     setAmount(amount + 1);
+  };
+
+  const handleAddToBasket = () => {
+    if (amount === 0) {
+      toast.error("Please add at least one item to the cart");
+      return;
+    }
+    addToBasket(amount);
+    setAmount(0);
   };
 
   return (
@@ -34,7 +48,10 @@ const AddToCart = () => {
           <img src="/images/icon-plus.svg" alt="plus-icon" />
         </button>
       </div>
-      <Button className="max-w-[280px] flex items-center justify-center gap-3 py-3">
+      <Button
+        className="max-w-[280px] flex items-center justify-center gap-3 py-3"
+        onClick={handleAddToBasket}
+      >
         <img src="/images/icon-cart.svg" alt="cart-icon" />
         <p>Add to cart</p>
       </Button>

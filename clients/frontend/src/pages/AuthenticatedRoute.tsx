@@ -9,9 +9,9 @@ import { RootState } from "../store";
 const AuthenticatedRoute: React.FC = () => {
   const userInfo = useSelector((state: RootState) => state.user.info);
 
-  if (!userInfo) {
-    return <Navigate to="/auth/login" />;
-  }
+  // if (!userInfo) {
+  //   return <Navigate to="/auth/login" />;
+  // }
 
   return <Outlet />;
 };

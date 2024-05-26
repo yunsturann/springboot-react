@@ -23,7 +23,7 @@ import { Toaster } from "react-hot-toast";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
-  // const userInfo = useSelector((state: RootState) => state.user.info);
+  const userInfo = useSelector((state: RootState) => state.user.info);
   const userStatus = useSelector((state: RootState) => state.user.status);
   const userError = useSelector((state: RootState) => state.user.error);
 
@@ -33,16 +33,35 @@ function App() {
     }
   }, [userStatus, dispatch]);
 
-  if (userStatus === "loading") {
-    return <div>Loading...</div>;
-  }
+  // if (userStatus === "loading") {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (userStatus === "failed") {
-    return <div>Error: {userError}</div>;
-  }
+  // if (userStatus === "failed") {
+  //   return <div>Error: {userError}</div>;
+  // }
+
+  console.log(userInfo);
 
   return (
     <main className="font-kumbh-sans min-h-screen flex flex-col justify-between">
+      <Toaster />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/collections" element={<Collection />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+      <Footer />
+    </main>
+  );
+}
+
+export default App;
+
+/*
+  <main className="font-kumbh-sans min-h-screen flex flex-col justify-between">
       <Toaster />
       <Navbar />
       <Routes>
@@ -57,8 +76,4 @@ function App() {
         </Route>
       </Routes>
       <Footer />
-    </main>
-  );
-}
-
-export default App;
+    </main> */

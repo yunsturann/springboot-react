@@ -25,9 +25,12 @@ const initialState: UserState = {
 export const fetchUserInfo = createAsyncThunk(
   "user/fetchUserInfo",
   async () => {
-    const response = await axios.get(`/api/user/user-info`, {
-      withCredentials: true,
-    });
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/api/private/user/session`,
+      {
+        withCredentials: true,
+      }
+    );
     return response.data as User;
   }
 );
