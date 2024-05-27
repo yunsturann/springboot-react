@@ -20,6 +20,7 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import AuthenticatedRoute from "./pages/AuthenticatedRoute";
 import { Toaster } from "react-hot-toast";
+import Address from "./pages/checkout/Address";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -52,6 +53,10 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/collections" element={<Collection />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/checkout/address" element={<Address />} />
+        <Route path="/checkout/card" element={<Register />} />
+        <Route path="/checkout/approve" element={<Register />} />
+        <Route path="/auth/login" element={<Login />} />
       </Routes>
       <Footer />
     </main>

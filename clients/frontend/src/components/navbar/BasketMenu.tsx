@@ -1,5 +1,6 @@
 // ** React Imports
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 // ** Custom Components
 import Button from "../ui/Button";
@@ -109,9 +110,9 @@ const BasketMenu = () => {
                 ))}
               </div>
               {/* CHECKOUT */}
-              <div className="p-4">
+              <Link to="/checkout/address" className="p-4">
                 <Button className="mt-4">Checkout</Button>
-              </div>
+              </Link>
             </>
           ) : (
             <p className="p-4 text-center">Your cart is empty</p>

@@ -20,14 +20,13 @@ public class ContactInfoService {
         this.userRepository = userRepository;
     }
 
-    public String addContactInfo(ContactInfo contactInfo){
+    public ContactInfo addContactInfo(ContactInfo contactInfo){
         User user = userRepository.findById(contactInfo.getUserId()).orElse(null);
         if(user == null){
-            return "User not found user id: " + contactInfo.getUserId();
+            throw new UsernameNotFoundException("User not found user id: " + contactInfo.getUserId());
         }
         contactInfo.setUserId(user.getId());
-        contactInfoRepository.save(contactInfo);
-        return "Contact info added successfully";
+        return contactInfoRepository.save(contactInfo);
     }
 
     public List<ContactInfo> getAllContactInfosByUserId(Long userId){

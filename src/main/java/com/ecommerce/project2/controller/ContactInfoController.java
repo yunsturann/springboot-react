@@ -4,6 +4,7 @@ import com.ecommerce.project2.model.ContactInfo;
 import com.ecommerce.project2.service.ContactInfoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,12 +20,13 @@ public class ContactInfoController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addContactInfo(@RequestBody ContactInfo contactInfo){
-        String result = contactInfoService.addContactInfo(contactInfo);
-        if(result.equals("User not found user id: " + contactInfo.getUserId())){
-            return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+    public ResponseEntity<ContactInfo> addContactInfo(@RequestBody ContactInfo contactInfo){
+        try {
+            ContactInfo result = contactInfoService.addContactInfo(contactInfo);
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
+        } catch (UsernameNotFoundException e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @GetMapping("/{userId}")

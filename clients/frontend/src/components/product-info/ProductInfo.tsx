@@ -1,8 +1,16 @@
 import { FC } from "react";
+
+// ** Custom Components
 import AddToCart from "./AddToCart";
+
+// ** Types
 import { IProduct } from "../../types";
-import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store";
+
+// ** Third Party Imports
+import { useDispatch } from "react-redux";
+
+// Redux Actions
 import { addItem } from "../../store/basket-slice";
 
 interface ProductInfoProps {

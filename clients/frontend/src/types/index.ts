@@ -10,3 +10,10 @@ export interface IProduct {
     full: string;
   }[];
 }
+
+export interface IAddress {
+  id: number;
+  title: string;
+  address: string;
+  userId: number;
+}

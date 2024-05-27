@@ -39,7 +39,7 @@ public class SecurityConfig {
                         x
                                 .requestMatchers(mvcRequestBuilder.pattern("/about")).authenticated()
                                 .requestMatchers(mvcRequestBuilder.pattern("/api/auth/**")).permitAll()
-                                .requestMatchers("/api/private/**").authenticated()
+                                .requestMatchers("/api/private/**").permitAll()
                                 .anyRequest().permitAll()
                 )
                 .httpBasic(Customizer.withDefaults())

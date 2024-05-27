@@ -1,99 +1,47 @@
 // ** React Imports
-import React, { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-// ** Prop Interface
-interface ModalProps {
+// ** Icons
+import { FaX } from "react-icons/fa6";
+
+// ** Utils
+import { cn } from "../../lib/utils";
+
+export interface ModalProps {
+  title: string;
+  children?: React.ReactNode;
   show: boolean;
-  setShow: React.Dispatch<React.SetStateAction<boolean>>;
-  images: {
-    thumbnail: string;
-    full: string;
-  }[];
+  setShow: Dispatch<SetStateAction<boolean>>;
+  innerClass?: string;
 }
 
 const Modal = (props: ModalProps) => {
-  const { images, show, setShow } = props;
+  const { title, children, innerClass, setShow } = props;
 
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  if (!show) return null;
-
-  const activeImage = images[activeIndex];
-
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const handlePrevious = () => {
-    setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  const onClose = () => {
+  const handleClose = () => {
     setShow(false);
   };
 
   return (
-    <div className="hidden md:flex fixed inset-0 w-full h-screen bg-black/60  items-center justify-center">
-      {/* Modal Inner */}
-      <div className="min-h-[50%]">
+    <div className="fixed inset-0 h-screen w-full bg-black/40 z-10 flex items-center justify-center">
+      <div
+        className={cn(
+          "z-20 flex flex-col bg-white dark:bg-gray-700 min-w-[320px] w-3/4 lg:w-1/2 min-h-[320px] rounded-xl p-6",
+          innerClass
+        )}
+      >
         {/* Modal Header */}
-        <header>
-          <img
-            src="/images/icon-close.svg"
-            alt="close-icon"
-            className="size-4 ml-auto cursor-pointer hover:opacity-50 transition duration-300"
-            onClick={onClose}
-          />
+        <header className="flex justify-between gap-4 items-center">
+          <h2 className="text-xl font-semibold ">{title}</h2>
+          <div
+            className="cursor-pointer hover:scale-110 transition duration-300"
+            onClick={handleClose}
+          >
+            <FaX />
+          </div>
         </header>
-        {/* Modal Body */}
-        <div className="relative mt-4">
-          {/* Main Image */}
-          <div>
-            <img
-              src={activeImage.full}
-              alt="active"
-              className="rounded-xl size-[500px] object-cover"
-            />
-          </div>
-          {/* Next & Before Btns */}
-          <div
-            className="absolute left-0 top-1/2 translate-y-[-50%] size-10 bg-white rounded-full flex justify-center items-center cursor-pointer hover:bg-opacity-50 transition duration-300 transform -translate-x-1/2"
-            onClick={handlePrevious}
-            draggable
-          >
-            <img
-              src="/images/icon-previous.svg"
-              alt="previous-icon"
-              className="mr-1"
-            />
-          </div>
-          <div
-            className="absolute right-0 top-1/2 translate-y-[-50%] size-10 bg-white rounded-full flex justify-center items-center cursor-pointer hover:bg-opacity-50 transition duration-300 transform translate-x-1/2"
-            onClick={handleNext}
-            draggable
-          >
-            <img src="/images/icon-next.svg" alt="next-icon" className="ml-1" />
-          </div>
-        </div>
-        {/* Modal Footer */}
-        <div className="flex justify-center items-center gap-5 mt-6">
-          {images.map((image, index) => {
-            const isActive = index === activeIndex;
-            return (
-              <div key={index} className="relative">
-                <img
-                  src={image.thumbnail}
-                  alt="thumbnail"
-                  className="rounded-xl size-20 cursor-pointer hover:opacity-70 transition duration-300"
-                  onClick={() => setActiveIndex(index)}
-                />
-                {isActive && (
-                  <div className="absolute inset-0 bg-white/60 rounded-xl"></div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+        {/* Modal Content */}
+        <div className="flex-1 overflow-auto max-h-[80vh] mt-5">{children}</div>
       </div>
     </div>
   );

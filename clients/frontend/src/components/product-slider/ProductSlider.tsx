@@ -2,9 +2,10 @@
 import { FC, useState } from "react";
 
 // ** utils
-
-import Modal from "../ui/Modal";
 import { cn } from "../../lib/utils";
+
+// ** Custom Components
+import Modal from "./ProductModal";
 
 interface ProductSliderProps {
   images: {
