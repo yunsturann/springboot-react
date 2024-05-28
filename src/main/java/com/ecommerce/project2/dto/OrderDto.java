@@ -9,5 +9,6 @@ import lombok.Data;
 @Builder
 public class OrderDto {
     private Long userId;
+    private Long contactInfoId;
     private int quantity;
 }

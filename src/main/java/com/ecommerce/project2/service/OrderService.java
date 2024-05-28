@@ -1,9 +1,11 @@
 package com.ecommerce.project2.service;
 
 import com.ecommerce.project2.dto.OrderDto;
+import com.ecommerce.project2.model.ContactInfo;
 import com.ecommerce.project2.model.Order;
 import com.ecommerce.project2.enums.OrderStatus;
 import com.ecommerce.project2.model.User;
+import com.ecommerce.project2.repository.ContactInfoRepository;
 import com.ecommerce.project2.repository.OrderRepository;
 import com.ecommerce.project2.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -17,18 +19,25 @@ public class OrderService {
     private final OrderRepository orderRepository;
 
     private final UserRepository userRepository;
+    private final ContactInfoRepository contactInfoRepository;
 
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository) {
+    public OrderService(OrderRepository orderRepository, UserRepository userRepository, ContactInfoRepository contactInfoRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
+        this.contactInfoRepository = contactInfoRepository;
     }
 
     public Order saveOrder(OrderDto orderDto) {
         User user = userRepository.findById(orderDto.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
+        ContactInfo contactInfo = contactInfoRepository.findById(orderDto.getContactInfoId())
+                .orElseThrow(() -> new RuntimeException("Contact info not found"));
+
+
         Order order = Order.builder()
                 .user(user)
+                .contactInfo(contactInfo)
                 .quantity(orderDto.getQuantity())
                 .status(OrderStatus.RECEIVED)
                 .build();

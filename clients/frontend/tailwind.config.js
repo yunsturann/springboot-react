@@ -6,7 +6,6 @@ module.exports = {
       fontFamily: {
         "kumbh-sans": ["Kumbh Sans", "sans-serif"],
       },
-
       colors: {
         "primary-orange": "hsl(26, 100%, 55%)",
         "primary-pale": "hsl(25, 100%, 94%)",

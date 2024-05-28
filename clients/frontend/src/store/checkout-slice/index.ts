@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+
+// ** Types
 import { IAddress } from "../../types";
+import { ICardInfo } from "../../components/checkout/CardForm";
 
 interface CheckoutItem {
   address: IAddress;
-  card: any;
+  card: ICardInfo;
 }
 
 const checkoutSlice = createSlice({

@@ -16,8 +16,8 @@ const basketSlice = createSlice({
     removeItem: (state, action: PayloadAction<number>) => {
       state.splice(action.payload, 1);
     },
-    clearBasket: () => {
-      return [];
+    clearBasket: (state) => {
+      state.length = 0;
     },
   },
 });

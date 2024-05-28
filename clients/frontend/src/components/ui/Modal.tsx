@@ -41,7 +41,9 @@ const Modal = (props: ModalProps) => {
           </div>
         </header>
         {/* Modal Content */}
-        <div className="flex-1 overflow-auto max-h-[80vh] mt-5">{children}</div>
+        <div className="flex-1 overflow-auto max-h-[80vh] mt-5 p-2">
+          {children}
+        </div>
       </div>
     </div>
   );

@@ -22,6 +22,11 @@ public class Order {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+
+    @ManyToOne
+    @JoinColumn(name = "contact_info_id", nullable = false)
+    private ContactInfo contactInfo;
+
     @Column(name = "quantity", nullable = false)
     private int quantity;
 

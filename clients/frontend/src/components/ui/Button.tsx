@@ -5,12 +5,13 @@ import React, { forwardRef } from "react";
 import { cn } from "../../lib/utils";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: "orange" | "blue";
+  color?: "orange" | "blue" | "red";
 }
 
 const colors = {
   orange: "bg-orange-500 hover:bg-orange-400 focus:ring-orange-500 text-white",
   blue: "bg-blue-500 hover:bg-blue-400 focus:ring-blue-500 text-white",
+  red: "bg-red-500 hover:bg-red-400 focus:ring-red-500 text-white",
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {

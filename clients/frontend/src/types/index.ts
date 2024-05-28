@@ -17,3 +17,10 @@ export interface IAddress {
   address: string;
   userId: number;
 }
+
+export interface IOrder {
+  id: number;
+  contactInfo: IAddress;
+  quantity: number;
+  status: string;
+}

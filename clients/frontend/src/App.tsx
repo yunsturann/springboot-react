@@ -11,6 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./store";
 import { fetchUserInfo } from "./store/user-slice";
 
+// ** Third Party Imports
+import { Toaster } from "react-hot-toast";
+
 // ** Custom Compoents
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
@@ -19,8 +22,11 @@ import AuthLayout from "./pages/auth";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import AuthenticatedRoute from "./pages/AuthenticatedRoute";
-import { Toaster } from "react-hot-toast";
+
 import Address from "./pages/checkout/Address";
+import CardPage from "./pages/checkout/CardPage";
+import ApprovePage from "./pages/checkout/ApprovePage";
+import OrdersPage from "./pages/OrdersPage";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -54,8 +60,9 @@ function App() {
         <Route path="/collections" element={<Collection />} />
         <Route path="/register" element={<Register />} />
         <Route path="/checkout/address" element={<Address />} />
-        <Route path="/checkout/card" element={<Register />} />
-        <Route path="/checkout/approve" element={<Register />} />
+        <Route path="/checkout/card" element={<CardPage />} />
+        {/* <Route path="/checkout/approve" element={<ApprovePage />} /> */}
+        <Route path="/myorders" element={<OrdersPage />} />
         <Route path="/auth/login" element={<Login />} />
       </Routes>
       <Footer />

@@ -1,23 +1,27 @@
 export const navItems = [
   {
     name: "Collections",
-    url: "/collections",
+    url: "/",
   },
   {
     name: "Men",
-    url: "/men",
+    url: "/",
   },
   {
     name: "Women",
-    url: "/women",
+    url: "/",
   },
   {
     name: "About",
-    url: "/about",
+    url: "/",
   },
   {
     name: "Contact",
-    url: "/contact",
+    url: "/",
+  },
+  {
+    name: "My Orders",
+    url: "/myorders",
   },
   {
     name: "Login",
