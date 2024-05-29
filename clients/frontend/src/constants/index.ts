@@ -1,48 +1,41 @@
 export const navItems = [
   {
-    name: "Collections",
-    url: "/",
-  },
-  {
-    name: "Men",
-    url: "/",
-  },
-  {
-    name: "Women",
-    url: "/",
-  },
-  {
-    name: "About",
-    url: "/",
-  },
-  {
-    name: "Contact",
-    url: "/",
-  },
-  {
     name: "My Orders",
     url: "/myorders",
   },
   {
-    name: "Login",
-    url: "/auth/login",
+    name: "Profile",
+    url: "/profile",
   },
 ];
-
-// export const products = [
+// export const navItems = [
 //   {
-//     id: 1,
-//     name: "Fall Limited Edition Sneakers",
-//     price: 125.0,
-//     quantity: 3,
-//     image: "/images/image-product-1-thumbnail.jpg",
+//     name: "Collections",
+//     url: "/",
 //   },
 //   {
-//     id: 2,
-//     name: "Fall Limited Edition Sneakers",
-//     price: 125.0,
-//     quantity: 3,
-//     image: "/images/image-product-1-thumbnail.jpg",
+//     name: "Men",
+//     url: "/",
+//   },
+//   {
+//     name: "Women",
+//     url: "/",
+//   },
+//   {
+//     name: "About",
+//     url: "/",
+//   },
+//   {
+//     name: "Contact",
+//     url: "/",
+//   },
+//   {
+//     name: "My Orders",
+//     url: "/myorders",
+//   },
+//   {
+//     name: "Login",
+//     url: "/auth/login",
 //   },
 // ];
 

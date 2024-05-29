@@ -48,7 +48,7 @@ const CardForm = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const userId = useSelector((state: RootState) => state.user.info?.id);
-  const basketItem = useSelector((state: RootState) => state.basket[0]);
+  const basketItem = useSelector((state: RootState) => state.basket);
   const contactInfoId = useSelector(
     (state: RootState) => state.checkout.address.id
   );
@@ -71,14 +71,18 @@ const CardForm = () => {
     dispatch(addCard(data));
     // navigate("/checkout/approve");
 
-    const quantity = basketItem.quantity;
+    const quantity = basketItem[0].quantity;
 
     try {
-      const res = await axios.post("/api/private/orders", {
-        userId,
-        contactInfoId,
-        quantity,
-      });
+      const res = await axios.post(
+        "/api/private/orders",
+        {
+          userId,
+          contactInfoId,
+          quantity,
+        },
+        { withCredentials: true }
+      );
 
       if (res.status === 201) {
         toast.success("Order has been placed successfully");

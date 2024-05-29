@@ -19,12 +19,11 @@ public class Order {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     private User user;
 
-
     @ManyToOne
-    @JoinColumn(name = "contact_info_id", nullable = false)
+    @JoinColumn(name = "contact_info_id",nullable = true)
     private ContactInfo contactInfo;
 
     @Column(name = "quantity", nullable = false)

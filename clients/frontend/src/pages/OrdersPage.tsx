@@ -42,7 +42,9 @@ const OrdersPage = () => {
     }
 
     try {
-      await axios.put(`/api/private/orders/${orderId}/cancel`);
+      await axios.put(`/api/private/orders/${orderId}/cancel`, {
+        withCredentials: true,
+      });
 
       setOrders((prevOrders) =>
         prevOrders.map((order) =>

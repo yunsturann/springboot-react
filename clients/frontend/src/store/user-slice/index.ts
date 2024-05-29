@@ -7,7 +7,8 @@ export interface User {
   name: string;
   lastName: string;
   email: string;
-  authorities: string[];
+  role: string;
+  phoneNumber: string;
 }
 
 interface UserState {
@@ -27,10 +28,12 @@ export const fetchUserInfo = createAsyncThunk(
   async () => {
     const response = await axios.get(
       `${process.env.REACT_APP_BASE_URL}/api/private/user/session`,
-      {
-        withCredentials: true,
-      }
+      { withCredentials: true }
     );
+
+    if (response.request.responseURL.includes("/auth/login")) {
+      window.location.href = "/auth/login";
+    }
     return response.data as User;
   }
 );

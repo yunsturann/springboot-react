@@ -54,4 +54,13 @@ public class ContactInfoService {
         return "Contact Info deleted successfully";
     }
 
+    public String deleteAllContactInfoByUserId(Long userId){
+        List<ContactInfo> contactInfos = contactInfoRepository.findAllByUserId(userId);
+        if(contactInfos.isEmpty()){
+            return "Contact Info not found";
+        }
+        contactInfoRepository.deleteAll(contactInfos);
+        return "Contact Info deleted successfully";
+    }
+
 }

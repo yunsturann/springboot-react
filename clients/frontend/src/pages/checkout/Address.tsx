@@ -34,11 +34,15 @@ const Address = () => {
     const fetchAddress = async () => {
       try {
         const res = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}/api/private/contactinfo/${userId}`
+          `${process.env.REACT_APP_BASE_URL}/api/private/contactinfo/${userId}`,
+          {
+            withCredentials: true,
+          }
         );
         if (res.status !== 200) {
           throw new Error("Failed to fetch address");
         }
+
         setAddress(res.data);
       } catch (error) {
         toast.error("Failed to fetch address");
@@ -51,7 +55,8 @@ const Address = () => {
   if (!userId) return null;
 
   const handleContinuePayment = () => {
-    if (address.length === 0) return toast.error("Please add an address");
+    if (!address[activeIndex])
+      return toast.error("Please add or select an address");
 
     dispatch(addAddress(address[activeIndex]));
 

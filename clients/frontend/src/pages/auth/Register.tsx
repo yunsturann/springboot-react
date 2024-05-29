@@ -1,6 +1,6 @@
 // ** React Imports
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // ** Custom Components
 import Button from "../../components/ui/Button";
@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { handleUserNameInput } from "../../lib/utils";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -108,6 +109,7 @@ const Register = () => {
               label="Name"
               type="text"
               error={errors.name?.message}
+              necessary
             />
             <Input
               {...register("surname")}
@@ -123,6 +125,8 @@ const Register = () => {
             label="Username"
             type="text"
             error={errors.username?.message}
+            necessary
+            onInput={handleUserNameInput}
           />
 
           {/* Password & Confirm */}
@@ -132,12 +136,14 @@ const Register = () => {
               label="Password"
               type="password"
               error={errors.password?.message}
+              necessary
             />
             <Input
               {...register("confirmPassword")}
               label="Confirm Password"
               type="password"
               error={errors.confirmPassword?.message}
+              necessary
             />
           </div>
 
@@ -147,6 +153,7 @@ const Register = () => {
             label="Email"
             type="email"
             error={errors.email?.message}
+            necessary
           />
 
           {/* Phone */}
@@ -156,12 +163,19 @@ const Register = () => {
             type="text"
             error={errors.phone?.message}
             maxLength={14}
+            necessary
           />
 
           <Button type="submit" className="mt-4" disabled={isSubmitting}>
             Register
           </Button>
         </form>
+        <Link to="/auth/login">
+          <p className="text-center  text-slate-600 mt-4">
+            Already have an account?{" "}
+            <span className="text-blue-600">Login</span>
+          </p>
+        </Link>
       </div>
     </div>
   );

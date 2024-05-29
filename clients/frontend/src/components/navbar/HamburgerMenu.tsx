@@ -9,6 +9,7 @@ import { cn } from "../../lib/utils";
 
 // ** Constants
 import { navItems } from "../../constants";
+import { FaX } from "react-icons/fa6";
 
 const HamburgerMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,15 +45,10 @@ const HamburgerMenu = () => {
         >
           {/* CLOSE ICON */}
           <div
-            className="mb-10 cursor-pointer"
+            className="inline-block mb-10 cursor-pointer hover:scale-125 transition duration-300"
             onClick={() => setIsMenuOpen(false)}
           >
-            <img
-              src="/images/icon-close.svg"
-              alt="close-icon"
-              width={15}
-              height={15}
-            />
+            <FaX size={15} />
           </div>
           {/* NAV ITEMS */}
           <ul className="space-y-3 font-semibold">

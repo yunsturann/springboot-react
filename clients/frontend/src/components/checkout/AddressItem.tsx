@@ -30,7 +30,10 @@ const AddressItem = (props: AddressItemProps) => {
 
     try {
       const res = await axios.delete(
-        `${process.env.REACT_APP_BASE_URL}/api/private/contactinfo/${addr.id}`
+        `${process.env.REACT_APP_BASE_URL}/api/private/contactinfo/${addr.id}`,
+        {
+          withCredentials: true,
+        }
       );
       if (res.status !== 200) {
         throw new Error("Failed to delete address");

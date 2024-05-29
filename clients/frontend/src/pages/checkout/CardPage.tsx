@@ -1,11 +1,21 @@
-import { FormProvider, useForm } from "react-hook-form";
+// ** React Imports
+import { Link } from "react-router-dom";
+
+// ** Custom Components
 import CardBack from "../../components/checkout/CardBack";
 import CardForm, {
   ICardInfo,
   formSchema,
 } from "../../components/checkout/CardForm";
 import CardFront from "../../components/checkout/CardFront";
+
+// ** Third Party Components
 import { yupResolver } from "@hookform/resolvers/yup";
+import { FormProvider, useForm } from "react-hook-form";
+
+// ** Redux
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
 
 const initialFormValues: ICardInfo = {
   cardholder: "",
@@ -18,10 +28,23 @@ const initialFormValues: ICardInfo = {
 };
 
 const CardPage = () => {
+  const basketItem = useSelector((state: RootState) => state.basket);
+
   const methods = useForm<ICardInfo>({
     resolver: yupResolver(formSchema),
     defaultValues: initialFormValues,
   });
+
+  if (basketItem.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <h1 className="text-3xl font-bold">Your basket is empty</h1>
+        <Link to="/" className="text-purple-900 underline mt-4 text-xl">
+          Go to Homepage
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <FormProvider {...methods}>

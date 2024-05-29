@@ -1,4 +1,6 @@
-// ** Custom Components
+// React Imports
+import { Link, useNavigate } from "react-router-dom";
+
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 
@@ -7,6 +9,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -19,10 +23,10 @@ const Login = () => {
         { withCredentials: true }
       );
 
-      if (response.status === 200) {
-        toast.success("Login successful");
-      } else {
+      if (response.request.responseURL.includes("?error=true")) {
         toast.error("Invalid credentials");
+      } else {
+        navigate("/");
       }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
@@ -30,7 +34,7 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-slate-400 h-screen w-full flex items-center justify-center px-8">
+    <div className="bg-gray-700 h-screen w-full flex items-center justify-center px-8">
       <div className="w-full max-w-[600px] bg-white p-6 rounded-xl space-y-4">
         <h1 className="font-bold text-center text-2xl">Login</h1>
         <form className="flex flex-col gap-y-3" onSubmit={handleLogin}>
@@ -40,6 +44,12 @@ const Login = () => {
             Login
           </Button>
         </form>
+        <Link to="/auth/register">
+          <p className="text-center  text-slate-600 mt-4">
+            Don't have an account?{" "}
+            <span className="text-blue-600">Register</span>
+          </p>
+        </Link>
       </div>
     </div>
   );

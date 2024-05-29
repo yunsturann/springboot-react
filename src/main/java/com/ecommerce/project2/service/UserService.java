@@ -1,9 +1,9 @@
 package com.ecommerce.project2.service;
 
 import com.ecommerce.project2.dto.CreateUserDto;
-import com.ecommerce.project2.dto.UserDto;
 import com.ecommerce.project2.enums.Role;
 import com.ecommerce.project2.model.User;
+import com.ecommerce.project2.repository.OrderRepository;
 import com.ecommerce.project2.repository.UserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,10 +14,16 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final OrderService orderService;
+
+    private final ContactInfoService contactInfoService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(UserRepository userRepository,OrderService orderService, ContactInfoService contactInfoService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
+        this.orderService = orderService;
+        this.contactInfoService = contactInfoService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -37,6 +43,16 @@ public class UserService {
                 .build();
         userRepository.save(user);
         return "User created successfully";
+    }
+
+    public String deleteUserById(Long id) {
+        if (!userRepository.existsById(id)) {
+            return "User not found";
+        }
+        orderService.cancelOrdersByUserId(id);
+        contactInfoService.deleteAllContactInfoByUserId(id);
+        userRepository.deleteById(id);
+        return "User deleted successfully";
     }
 
 }

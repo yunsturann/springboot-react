@@ -4,7 +4,7 @@ import Input from "../ui/Input";
 import Modal, { ModalProps } from "../ui/Modal";
 
 // ** Third Party Components
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
@@ -51,13 +51,18 @@ const AddressModal = (props: AddressModalProps) => {
         {
           ...data,
           userId,
+        },
+        {
+          withCredentials: true,
         }
       );
+      console.log(res);
       if (res.status !== 201) {
         throw new Error("Failed to add address");
       }
       setAddress((prev) => [...prev, res.data]);
       toast.success("Address added successfully");
+      rest.setShow(false);
     } catch (error) {
       toast.error("Failed to add address");
     }

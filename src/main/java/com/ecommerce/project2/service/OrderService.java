@@ -8,7 +8,11 @@ import com.ecommerce.project2.model.User;
 import com.ecommerce.project2.repository.ContactInfoRepository;
 import com.ecommerce.project2.repository.OrderRepository;
 import com.ecommerce.project2.repository.UserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +73,15 @@ public class OrderService {
             return true;
         } else {
             return false;
+        }
+    }
+    public void cancelOrdersByUserId(Long userId) {
+        List<Order> orders = orderRepository.findByUserId(userId);
+        for (Order order : orders) {
+            order.setStatus(OrderStatus.CANCELLED);
+            order.setUser(null);
+            order.setContactInfo(null);
+            orderRepository.save(order);
         }
     }
 
