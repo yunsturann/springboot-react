@@ -95,7 +95,7 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-gray-700 h-screen w-full flex items-center justify-center px-8">
+    <div className="bg-gray-700 min-h-screen w-full flex items-center justify-center px-8 py-10">
       <div className="w-full max-w-[600px] bg-white p-6 rounded-xl space-y-4">
         <h1 className="font-bold text-center text-2xl">Register</h1>
         <form

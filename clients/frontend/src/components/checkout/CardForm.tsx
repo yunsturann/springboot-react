@@ -69,7 +69,6 @@ const CardForm = () => {
 
   const onSubmit = async (data: ICardInfo) => {
     dispatch(addCard(data));
-    // navigate("/checkout/approve");
 
     const quantity = basketItem[0].quantity;
 
@@ -87,7 +86,6 @@ const CardForm = () => {
       if (res.status === 201) {
         toast.success("Order has been placed successfully");
         dispatch(clearBasket());
-        navigate("/");
       }
     } catch (error) {
       toast.error("An error occurred while placing the order");

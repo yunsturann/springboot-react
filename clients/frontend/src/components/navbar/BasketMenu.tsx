@@ -58,7 +58,7 @@ const BasketMenu = () => {
       {isBasketOpen ? (
         <div
           ref={basketRef}
-          className="absolute top-full mt-3 max-md:left-3 right-3 md:w-[360px] md:-mt-4 md:right-10 rounded-lg shadow-xl min-h-52 border border-gray-200 bg-white flex flex-col justify-between"
+          className="z-50 absolute top-full mt-3 max-md:left-3 right-3 md:w-[360px] md:-mt-4 md:right-10 rounded-lg shadow-xl min-h-52 border border-gray-200 bg-white flex flex-col justify-between"
         >
           {/* HEAD */}
           <div className="p-4 border-b border-gray-300">

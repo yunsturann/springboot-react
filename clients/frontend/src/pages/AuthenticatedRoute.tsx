@@ -1,20 +1,33 @@
 // ** React Imports
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
 // ** Third Party Imports
 import toast from "react-hot-toast";
 
 // ** Redux Imports
-import { RootState } from "../store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store";
+
+import { fetchUserInfo } from "../store/user-slice";
 
 const AuthenticatedRoute: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user);
 
-  if (user.status && user.status !== "succeeded") {
-    toast.error("You need to login first");
-    return <Navigate to="/" />;
+  useEffect(() => {
+    if (user.status !== "succeeded") {
+      dispatch(fetchUserInfo());
+    }
+  }, [dispatch, user.status]);
+
+  if (user.status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (user.status === "failed") {
+    toast.error("You need to be logged in to access this page");
+    return <Navigate to="/auth/login" />;
   }
 
   return <Outlet />;

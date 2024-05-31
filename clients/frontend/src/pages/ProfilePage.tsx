@@ -1,6 +1,6 @@
 // ** Redux Imports
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../store";
 
 // ** Custom Components
 import Container from "../components/Container";
@@ -9,10 +9,11 @@ import Button from "../components/ui/Button";
 // ** Third Party Components
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
+import { logout } from "../store/user-slice";
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const userInfo = useSelector((state: RootState) => state.user.info);
 
@@ -24,7 +25,8 @@ const ProfilePage = () => {
         { withCredentials: true }
       );
       toast.success("Logged out successfully");
-      navigate("/auth/login");
+
+      dispatch(logout());
     } catch (error) {
       toast.error("Error logging out");
     }

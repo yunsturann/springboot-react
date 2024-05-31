@@ -44,6 +44,8 @@ const userSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.info = null;
+      state.status = "idle";
+      window.location.href = "/";
     },
   },
   extraReducers: (builder) => {

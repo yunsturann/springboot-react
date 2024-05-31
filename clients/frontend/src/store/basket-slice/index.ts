@@ -18,6 +18,7 @@ const basketSlice = createSlice({
     },
     clearBasket: (state) => {
       state.length = 0;
+      window.location.href = "/";
     },
   },
 });
